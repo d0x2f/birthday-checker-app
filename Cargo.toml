@@ -1,0 +1,15 @@
+[package]
+name = "birthday-checker"
+version = "0.1.0"
+authors = ["Dylan McGannon <peltium@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+actix-web = "^4.2.1"
+log4rs = { version = "^1.2.0", features = ["json_encoder"] }
+log = "^0.4"
+firestore = "0.25.0"
+derive_more = "0.99.17"
+serde_json = "1.0.91"
+serde = "1.0.152"
+chrono = "0.4.23"
