@@ -2,9 +2,12 @@ use crate::config::Config;
 use crate::errors::AppError;
 use crate::models::*;
 use crate::utils;
+use actix_web::Responder;
 use actix_web::{get, put, web, HttpResponse};
 use chrono::Utc;
 use firestore::FirestoreDb;
+use lazy_static::lazy_static;
+use regex::{Regex, RegexBuilder};
 use serde_json::json;
 
 const COLLECTION_NAME: &str = "users";
@@ -15,10 +18,24 @@ async fn submit_birthday(
   params: web::Path<String>,
   body: web::Json<PutUserBody>,
 ) -> Result<HttpResponse, AppError> {
+  lazy_static! {
+    static ref NAME_VALIDATOR: Regex = RegexBuilder::new(r"^[a-z]+$")
+      .case_insensitive(true)
+      .build()
+      .expect("regex to compile");
+  }
+
   let db = FirestoreDb::new(config.firestore_project.clone()).await?;
 
   let name = params.into_inner();
   let birthday = body.into_inner().birthday;
+
+  // Return an error if the name isn't just letters
+  if !NAME_VALIDATOR.is_match(&name) {
+    return Err(AppError::BadRequest(
+      "Invalid name, only letters allowed.".into(),
+    ));
+  }
 
   // Return an error if the birthday is in the future
   if Utc::now().date_naive() < birthday {
@@ -64,4 +81,9 @@ async fn get_user(
   };
 
   Ok(HttpResponse::Ok().json(json!({ "message": message })))
+}
+
+#[get("/healthz")]
+async fn healthz() -> impl Responder {
+  HttpResponse::Ok().finish()
 }

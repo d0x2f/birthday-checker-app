@@ -21,6 +21,7 @@ async fn main() -> std::io::Result<()> {
       .app_data(web::Data::new(config::Config::from_env()))
       .service(routes::submit_birthday)
       .service(routes::get_user)
+      .service(routes::healthz)
       .app_data(web::JsonConfig::default().error_handler(|error, _| {
         error::InternalError::from_response(error, HttpResponse::BadRequest().finish()).into()
       }))

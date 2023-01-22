@@ -7,7 +7,7 @@ pub fn days_until_next_birthday(today: NaiveDate, birthday: NaiveDate) -> Result
   let today_ordinal = today.ordinal();
   let birthday_ordinal = birthday.ordinal();
 
-  // Birthday is today
+  // Birthday is today!
   if today.ordinal() == birthday_ordinal {
     return Ok(0);
   }

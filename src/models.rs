@@ -9,6 +9,7 @@ pub struct User {
 }
 
 #[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct PutUserBody {
   #[serde(rename = "dateOfBirth")]
   pub birthday: NaiveDate,
