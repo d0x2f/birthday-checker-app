@@ -4,7 +4,7 @@ use firestore::errors::FirestoreError;
 use log::error;
 use serde_json::json;
 
-#[derive(Debug, Display)]
+#[derive(Debug, Display, PartialEq, Eq)]
 #[allow(dead_code)]
 pub enum AppError {
   #[display(fmt = "not found")]
