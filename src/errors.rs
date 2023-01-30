@@ -10,7 +10,7 @@ pub enum AppError {
   #[display(fmt = "not found")]
   NotFound, // 404
 
-  #[display(fmt = "{}", _0)]
+  #[display(fmt = "{_0}")]
   BadRequest(String), // 400
 
   // Don't expose unknown error text
