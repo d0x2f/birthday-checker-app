@@ -3,7 +3,7 @@
 Stores names with birthdays and provides a route to find the number of days
 until a users next birthday.
 
-It's currently hosted at https://birthday-checker-3vshm7xaxa-nw.a.run.app.
+~It's currently hosted at https://birthday-checker-3vshm7xaxa-nw.a.run.app.~
 
 ## Usage
 
